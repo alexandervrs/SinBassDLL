@@ -1,6 +1,6 @@
 #define sinBassDefine
-/* SIN AUDIO DLL | VERSION 1.3 */
-/* using bass.dll version 2.4 */
+/* SIN BASS DLL | VERSION 1.3.1 */
+/* using bass.dll version 2.4.7.1 */
 
 /* initialize the DLL, call this script before you use any functions from the DLL */
 
@@ -40,9 +40,11 @@ global.var_sin_bass_stream_is_stopped = external_define(var_sin_bass_dll, "sin_b
 global.var_sin_bass_stream_volume_is_fading = external_define(var_sin_bass_dll, "sin_bass_stream_volume_is_fading", dll_cdecl, ty_real, 1, ty_real);
 global.var_sin_bass_stream_pitch_is_fading = external_define(var_sin_bass_dll, "sin_bass_stream_pitch_is_fading", dll_cdecl, ty_real, 1, ty_real);
 global.var_sin_bass_stream_pan_is_fading = external_define(var_sin_bass_dll, "sin_bass_stream_pan_is_fading", dll_cdecl, ty_real, 1, ty_real);
-global.var_sin_bass_stream_set_position = external_define(var_sin_bass_dll, "sin_bass_stream_set_position", dll_cdecl, ty_real, 2, ty_real, ty_real);
-global.var_sin_bass_stream_get_position = external_define(var_sin_bass_dll, "sin_bass_stream_get_position", dll_cdecl, ty_real, 1, ty_real);
-global.var_sin_bass_stream_get_length = external_define(var_sin_bass_dll, "sin_bass_stream_get_length", dll_cdecl, ty_real, 1, ty_real);
+global.var_sin_bass_stream_set_position_bytes = external_define(var_sin_bass_dll, "sin_bass_stream_set_position_bytes", dll_cdecl, ty_real, 2, ty_real, ty_real);
+global.var_sin_bass_stream_get_position_bytes = external_define(var_sin_bass_dll, "sin_bass_stream_get_position_bytes", dll_cdecl, ty_real, 1, ty_real);
+global.var_sin_bass_stream_get_position_seconds = external_define(var_sin_bass_dll, "sin_bass_stream_get_position_seconds", dll_cdecl, ty_real, 1, ty_real);
+global.var_sin_bass_stream_get_length_bytes = external_define(var_sin_bass_dll, "sin_bass_stream_get_length_bytes", dll_cdecl, ty_real, 1, ty_real);
+global.var_sin_bass_stream_get_length_seconds = external_define(var_sin_bass_dll, "sin_bass_stream_get_length_seconds", dll_cdecl, ty_real, 1, ty_real);
 global.var_sin_bass_stream_get_pitch = external_define(var_sin_bass_dll, "sin_bass_stream_get_pitch", dll_cdecl, ty_real, 1, ty_real);
 global.var_sin_bass_stream_get_pan = external_define(var_sin_bass_dll, "sin_bass_stream_get_pan", dll_cdecl, ty_real, 1, ty_real);
 global.var_sin_bass_stream_free = external_define(var_sin_bass_dll, "sin_bass_stream_free", dll_cdecl, ty_real, 1, ty_real);
@@ -67,7 +69,7 @@ returns 1 on success, 0 on failure, -1 when then the bass.dll could not be found
 
 */
 
-return external_call(global.var_sin_bass_init, argument0, window_handle());
+return external_call(global.var_sin_bass_init,argument0,window_handle());
 
 #define sinBassClose
 /*
@@ -100,7 +102,7 @@ returns 0 = no sound, 1 = first real output device
 
 */
 
-return external_call(global.var_sin_bass_set_device, argument0);
+return external_call(global.var_sin_bass_set_device,argument0);
 
 #define sinBassGetCPU
 /*
@@ -133,7 +135,7 @@ returns volume on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_set_global_volume, argument0);
+return external_call(global.var_sin_bass_set_global_volume,argument0);
 
 #define sinBassGetMasterVolume
 /*
@@ -155,7 +157,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_set_master_volume, argument0);
+return external_call(global.var_sin_bass_set_master_volume,argument0);
 
 #define sinBassErrorGetCode
 /*
@@ -215,7 +217,7 @@ returns a numeric ID on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_load, argument0);
+return external_call(global.var_sin_bass_stream_load,argument0);
 
 #define sinBassStreamPlay
 /*
@@ -226,7 +228,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_play, argument0);
+return external_call(global.var_sin_bass_stream_play,argument0);
 
 #define sinBassStreamLoop
 /*
@@ -237,7 +239,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_loop, argument0);
+return external_call(global.var_sin_bass_stream_loop,argument0);
 
 #define sinBassStreamStop
 /*
@@ -248,7 +250,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_stop, argument0);
+return external_call(global.var_sin_bass_stream_stop,argument0);
 
 #define sinBassStreamPause
 /*
@@ -259,7 +261,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_pause, argument0);
+return external_call(global.var_sin_bass_stream_pause,argument0);
 
 #define sinBassStreamResume
 /*
@@ -270,7 +272,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_resume, argument0);
+return external_call(global.var_sin_bass_stream_resume,argument0);
 
 #define sinBassStreamFree
 /*
@@ -281,7 +283,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_free, argument0);
+return external_call(global.var_sin_bass_stream_free,argument0);
 
 #define sinBassStreamSetLoop
 /*
@@ -292,7 +294,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_set_loop, argument0, argument1);
+return external_call(global.var_sin_bass_stream_set_loop,argument0,argument1);
 
 #define sinBassStreamGetLoop
 /*
@@ -303,7 +305,7 @@ returns 1 if loop on, 0 for off
 
 */
 
-return external_call(global.var_sin_bass_stream_get_loop, argument0);
+return external_call(global.var_sin_bass_stream_get_loop,argument0);
 
 #define sinBassStreamSetVolume
 /*
@@ -314,7 +316,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_set_volume, argument0, argument1);
+return external_call(global.var_sin_bass_stream_set_volume,argument0,argument1);
 
 #define sinBassStreamGetVolume
 /*
@@ -325,7 +327,7 @@ returns volume on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_get_volume, argument0);
+return external_call(global.var_sin_bass_stream_get_volume,argument0);
 
 #define sinBassStreamSetPitch
 /*
@@ -336,7 +338,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_set_pitch, argument0, argument1);
+return external_call(global.var_sin_bass_stream_set_pitch,argument0,argument1);
 
 #define sinBassStreamGetPitch
 /*
@@ -347,7 +349,7 @@ returns pitch on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_get_pitch, argument0);
+return external_call(global.var_sin_bass_stream_get_pitch,argument0);
 
 #define sinBassStreamSetPan
 /*
@@ -358,7 +360,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_set_pan, argument0, argument1);
+return external_call(global.var_sin_bass_stream_set_pan,argument0,argument1);
 
 #define sinBassStreamGetPan
 /*
@@ -369,7 +371,7 @@ returns pitch on success, -2 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_get_pan, argument0);
+return external_call(global.var_sin_bass_stream_get_pan,argument0);
 
 #define sinBassStreamFadeVolume
 /*
@@ -380,7 +382,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_fade_volume, argument0, argument1, argument2);
+return external_call(global.var_sin_bass_stream_fade_volume,argument0,argument1,argument2);
 
 #define sinBassStreamFadePitch
 /*
@@ -391,7 +393,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_fade_pitch, argument0, argument1, argument2);
+return external_call(global.var_sin_bass_stream_fade_pitch,argument0,argument1,argument2);
 
 #define sinBassStreamFadePan
 /*
@@ -402,7 +404,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_fade_pan, argument0, argument1, argument2);
+return external_call(global.var_sin_bass_stream_fade_pan,argument0,argument1,argument2);
 
 #define sinBassStreamVolumeIsFading
 /*
@@ -413,7 +415,7 @@ returns 1 if yes, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_volume_is_fading, argument0);
+return external_call(global.var_sin_bass_stream_volume_is_fading,argument0);
 
 #define sinBassStreamPitchIsFading
 /*
@@ -424,7 +426,7 @@ returns 1 if yes, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_pitch_is_fading, argument0);
+return external_call(global.var_sin_bass_stream_pitch_is_fading,argument0);
 
 #define sinBassStreamPanIsFading
 /*
@@ -435,20 +437,20 @@ returns 1 if yes, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_pan_is_fading, argument0);
+return external_call(global.var_sin_bass_stream_pan_is_fading,argument0);
 
-#define sinBassStreamSetPosition
+#define sinBassStreamSetPositionBytes
 /*
 
-Sets the position of a sound stream (in bytes)
+Sets the position of a sound stream in bytes
 
 returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_set_position, argument0, argument1);
+return external_call(global.var_sin_bass_stream_set_position_bytes,argument0,argument1);
 
-#define sinBassStreamGetPosition
+#define sinBassStreamGetPositionBytes
 /*
 
 Gets the position of a sound stream (in bytes)
@@ -457,9 +459,20 @@ returns the position on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_get_position, argument0);
+return external_call(global.var_sin_bass_stream_get_position_bytes,argument0);
 
-#define sinBassStreamGetLength
+#define sinBassStreamGetPositionSeconds
+/*
+
+Gets the position of a sound stream (in seconds)
+
+returns the position on success, -1 on failure
+
+*/
+
+return external_call(global.var_sin_bass_stream_get_position_seconds,argument0);
+
+#define sinBassStreamGetLengthBytes
 /*
 
 Gets the total length of a sound stream (in bytes)
@@ -468,7 +481,18 @@ returns the length on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_stream_get_length, argument0);
+return external_call(global.var_sin_bass_stream_get_length_bytes,argument0);
+
+#define sinBassStreamGetLengthSeconds
+/*
+
+Gets the total length of a sound stream (in seconds)
+
+returns the length on success, -1 on failure
+
+*/
+
+return external_call(global.var_sin_bass_stream_get_length_seconds,argument0);
 
 #define sinBassStreamIsPlaying
 /*
@@ -479,7 +503,7 @@ returns 1 if playing, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_is_playing, argument0);
+return external_call(global.var_sin_bass_stream_is_playing,argument0);
 
 #define sinBassStreamIsPaused
 /*
@@ -490,7 +514,7 @@ returns 1 if paused, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_is_paused, argument0);
+return external_call(global.var_sin_bass_stream_is_paused,argument0);
 
 #define sinBassStreamIsStopped
 /*
@@ -501,7 +525,7 @@ returns 1 if stopped, 0 if not
 
 */
 
-return external_call(global.var_sin_bass_stream_is_stopped, argument0);
+return external_call(global.var_sin_bass_stream_is_stopped,argument0);
 
 #define sinBassSampleLoad
 /*
@@ -514,7 +538,7 @@ returns a numeric ID on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_load, argument0);
+return external_call(global.var_sin_bass_sample_load,argument0);
 
 #define sinBassSamplePlay
 /*
@@ -525,7 +549,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_play, argument0);
+return external_call(global.var_sin_bass_sample_play,argument0);
 
 #define sinBassSampleStop
 /*
@@ -536,7 +560,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_stop, argument0);
+return external_call(global.var_sin_bass_sample_stop,argument0);
 
 #define sinBassSampleFree
 /*
@@ -547,7 +571,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_free, argument0);
+return external_call(global.var_sin_bass_sample_free,argument0);
 
 #define sinBassSampleSetVolume
 /*
@@ -558,7 +582,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_set_volume, argument0, argument1);
+return external_call(global.var_sin_bass_sample_set_volume,argument0,argument1);
 
 #define sinBassSampleGetVolume
 /*
@@ -569,7 +593,7 @@ returns volume on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_get_volume, argument0);
+return external_call(global.var_sin_bass_sample_get_volume,argument0);
 
 #define sinBassSampleSetPitch
 /*
@@ -580,7 +604,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_set_pitch, argument0, argument1);
+return external_call(global.var_sin_bass_sample_set_pitch,argument0,argument1);
 
 #define sinBassSampleGetPitch
 /*
@@ -591,7 +615,7 @@ returns pitch on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_get_pitch, argument0);
+return external_call(global.var_sin_bass_sample_get_pitch,argument0);
 
 #define sinBassSampleSetPan
 /*
@@ -602,7 +626,7 @@ returns 1 on success, 0 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_set_pan, argument0, argument1);
+return external_call(global.var_sin_bass_sample_set_pan,argument0,argument1);
 
 #define sinBassSampleGetPan
 /*
@@ -613,4 +637,5 @@ returns pan on success, -1 on failure
 
 */
 
-return external_call(global.var_sin_bass_sample_get_pan, argument0);
+return external_call(global.var_sin_bass_sample_get_pan,argument0);
+
